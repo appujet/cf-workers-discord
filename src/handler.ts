@@ -70,13 +70,6 @@ export const createApplicationCommandHandler = (
     '/interaction',
     interaction({ publicKey, commands, components }),
   );
-  router.get('/setup', setup({
-    applicationId: application.applicationId,
-    botToken: application.botToken,
-    guildId: application.guildId,
-    commands: application.commands,
-    publicKey: application.publicKey,
-    permissions: application.permissions
-  }));
+  router.get('/setup', setup(application));
   return router.handle;
 };
