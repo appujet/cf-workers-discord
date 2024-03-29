@@ -7,6 +7,7 @@ import { Permissions } from './permissions';
 import {
   APIButtonComponentWithCustomId,
   APISelectMenuComponent,
+  ApplicationCommandInteraction,
   InteractionHandler,
   PartialWithRequiredAPIApplicationCommand,
 } from './types';
@@ -15,7 +16,7 @@ const router = Router();
 
 export interface Command {
   command: PartialWithRequiredAPIApplicationCommand;
-  handler: InteractionHandler;
+  handler: ApplicationCommandInteraction;
 }
 
 export interface MessageComponent {

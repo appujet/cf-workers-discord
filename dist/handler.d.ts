@@ -1,9 +1,9 @@
 /// <reference types="@cloudflare/workers-types" />
 import { Permissions } from './permissions';
-import { APIButtonComponentWithCustomId, APISelectMenuComponent, InteractionHandler, PartialWithRequiredAPIApplicationCommand } from './types';
+import { APIButtonComponentWithCustomId, APISelectMenuComponent, ApplicationCommandInteraction, InteractionHandler, PartialWithRequiredAPIApplicationCommand } from './types';
 export interface Command {
     command: PartialWithRequiredAPIApplicationCommand;
-    handler: InteractionHandler;
+    handler: ApplicationCommandInteraction;
 }
 export interface MessageComponent {
     component: MessageComponentWithCustomId;

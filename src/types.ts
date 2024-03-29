@@ -3,6 +3,7 @@ import type {
   APIApplicationCommand,
   APIInteraction,
   APIInteractionResponse,
+  APIApplicationCommandInteraction,
 } from 'discord-api-types/v10';
 
 export * from 'discord-api-types/v10';
@@ -14,4 +15,8 @@ export type PartialWithRequiredAPIApplicationCommand = PartialWithRequired<APIAp
 
 export type InteractionHandler = (
   interaction: APIInteraction,
+) => Promise<APIInteractionResponse> | APIInteractionResponse;
+
+export type ApplicationCommandInteraction = (
+  interaction: APIApplicationCommandInteraction,
 ) => Promise<APIInteractionResponse> | APIInteractionResponse;
