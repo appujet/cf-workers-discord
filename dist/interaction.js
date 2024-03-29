@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { sign } from 'tweetnacl';
 import { fromHexString } from './handler';
-import { InteractionType, } from './types';
+import { InteractionType, InteractionResponseType, } from './types';
+import { CommandContext } from './contexts/commandContext';
+import { ComponentContext } from './contexts/ComponentContext';
+import respond from './respond';
 class InvalidRequestError extends Error {
     constructor(message) {
         super(message);
@@ -23,29 +26,33 @@ const validateRequest = async (request, publicKey) => {
 const jsonResponse = (data) => {
     return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } });
 };
-export const interaction = ({ publicKey, commands, components = {} }) => async (request, ...extra) => {
+export const interaction = ({ botToken, publicKey, commands, components = {} }) => async (request, ...extra) => {
     try {
         await validateRequest(request.clone(), publicKey);
         const interaction = (await request.json());
         switch (interaction.type) {
             case InteractionType.Ping: {
-                return jsonResponse({ type: 1 });
+                return respond({
+                    type: InteractionResponseType.Pong,
+                });
             }
             case InteractionType.ApplicationCommand: {
-                const structure = interaction;
-                if (structure.data?.name === undefined) {
+                const ctx = new CommandContext(interaction, botToken);
+                const options = interaction;
+                if (options.data?.name === undefined) {
                     throw Error('Interaction name is undefined');
                 }
-                const handler = commands[structure.data?.name].handler;
-                return jsonResponse(await handler(interaction));
+                const handler = commands[options.data?.name].handler;
+                return jsonResponse(await handler(ctx));
             }
             case InteractionType.MessageComponent: {
-                const structure = interaction;
-                if (structure.data === undefined) {
+                const ctx = new ComponentContext(interaction, botToken);
+                const options = interaction;
+                if (options.data === undefined) {
                     throw Error('Interaction custom_id is undefined');
                 }
-                const handler = components[structure.data?.custom_id].handler;
-                return jsonResponse(await handler(interaction));
+                const handler = components[options.data?.custom_id].handler;
+                return jsonResponse(await handler(ctx));
             }
             default: {
                 return new Response(null, { status: 404 });

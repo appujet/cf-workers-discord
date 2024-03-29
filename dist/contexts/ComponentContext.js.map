@@ -1,0 +1,1 @@
+{"version":3,"file":"ComponentContext.js","sourceRoot":"","sources":["../../src/contexts/ComponentContext.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAEpC,MAAM,OAAO,gBAAiB,SAAQ,OAAO;IAGzC,YAAY,WAA2C,EAAE,QAAgB;QACrE,KAAK,CAAC,WAAW,EAAE,QAAQ,CAAC,CAAC;QAE7B,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACnC,CAAC;CACJ"}

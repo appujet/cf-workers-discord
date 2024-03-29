@@ -21,7 +21,7 @@ export const createApplicationCommandHandler = (application) => {
     const commands = toDictCommands(application);
     const publicKey = fromHexString(application.publicKey);
     router.get('/', authorize(application.applicationId, application.permissions));
-    router.post('/interaction', interaction({ publicKey, commands, components }));
+    router.post('/interaction', interaction({ botToken: application.botToken, publicKey, commands, components }));
     router.get('/setup', setup(application));
     return router.handle;
 };

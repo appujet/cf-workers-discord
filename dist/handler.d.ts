@@ -1,13 +1,15 @@
 /// <reference types="@cloudflare/workers-types" />
 import { Permissions } from './permissions';
-import { APIButtonComponentWithCustomId, APISelectMenuComponent, ApplicationCommandInteraction, InteractionHandler, PartialWithRequiredAPIApplicationCommand } from './types';
+import { APIButtonComponentWithCustomId, APIInteractionResponse, APISelectMenuComponent, PartialWithRequiredAPIApplicationCommand } from './types';
+import { ComponentContext } from './contexts/ComponentContext';
+import { CommandContext } from './contexts/commandContext';
 export interface Command {
     command: PartialWithRequiredAPIApplicationCommand;
-    handler: ApplicationCommandInteraction;
+    handler: (interaction: CommandContext) => Promise<APIInteractionResponse> | APIInteractionResponse;
 }
 export interface MessageComponent {
     component: MessageComponentWithCustomId;
-    handler: InteractionHandler;
+    handler: (interaction: ComponentContext) => Promise<APIInteractionResponse> | APIInteractionResponse;
 }
 export interface Application {
     applicationId: string;

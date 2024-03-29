@@ -6,22 +6,23 @@ import { Permissions } from './permissions';
 
 import {
   APIButtonComponentWithCustomId,
+  APIInteractionResponse,
   APISelectMenuComponent,
-  ApplicationCommandInteraction,
-  InteractionHandler,
   PartialWithRequiredAPIApplicationCommand,
 } from './types';
+import { ComponentContext } from './contexts/ComponentContext';
+import { CommandContext } from './contexts/commandContext';
 
 const router = Router();
 
 export interface Command {
   command: PartialWithRequiredAPIApplicationCommand;
-  handler: ApplicationCommandInteraction;
+  handler: (interaction: CommandContext) => Promise<APIInteractionResponse> | APIInteractionResponse;
 }
 
 export interface MessageComponent {
   component: MessageComponentWithCustomId;
-  handler: InteractionHandler;
+  handler: (interaction: ComponentContext) => Promise<APIInteractionResponse> | APIInteractionResponse;
 }
 
 export interface Application {
@@ -69,7 +70,7 @@ export const createApplicationCommandHandler = (
   router.get('/', authorize(application.applicationId, application.permissions));
   router.post(
     '/interaction',
-    interaction({ publicKey, commands, components }),
+    interaction({ botToken: application.botToken, publicKey, commands, components }),
   );
   router.get('/setup', setup(application));
   return router.handle;

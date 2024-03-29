@@ -1,0 +1,1 @@
+{"version":3,"file":"commandContext.js","sourceRoot":"","sources":["../../src/contexts/commandContext.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAGpC,MAAM,OAAO,cAAe,SAAQ,OAAO;IAGvC,YAAY,WAA6C,EAAE,QAAgB;QACvE,KAAK,CAAC,WAAW,EAAE,QAAQ,CAAC,CAAC;QAE7B,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACnC,CAAC;CACJ"}

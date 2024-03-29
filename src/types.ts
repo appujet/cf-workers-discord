@@ -20,3 +20,4 @@ export type InteractionHandler = (
 export type ApplicationCommandInteraction = (
   interaction: APIApplicationCommandInteraction,
 ) => Promise<APIInteractionResponse> | APIInteractionResponse;
+
