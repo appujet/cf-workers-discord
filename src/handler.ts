@@ -27,10 +27,10 @@ export interface Application {
   applicationId: string;
   botToken: string;
   publicKey: string;
-  guildId?: string;
   commands: Command[];
-  components?: MessageComponent[];
   permissions: Permissions;
+  guildId?: string;
+  components?: MessageComponent[];
 }
 
 export type DictComponents = Record<string, MessageComponent>;
@@ -70,6 +70,13 @@ export const createApplicationCommandHandler = (
     '/interaction',
     interaction({ publicKey, commands, components }),
   );
-  router.get('/setup', setup(application));
+  router.get('/setup', setup({
+    applicationId: application.applicationId,
+    botToken: application.botToken,
+    guildId: application.guildId,
+    commands: application.commands,
+    publicKey: application.publicKey,
+    permissions: application.permissions
+  }));
   return router.handle;
 };

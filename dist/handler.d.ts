@@ -13,10 +13,10 @@ export interface Application {
     applicationId: string;
     botToken: string;
     publicKey: string;
-    guildId?: string;
     commands: Command[];
-    components?: MessageComponent[];
     permissions: Permissions;
+    guildId?: string;
+    components?: MessageComponent[];
 }
 export type DictComponents = Record<string, MessageComponent>;
 export type DictCommands = Record<string, Command>;

@@ -22,7 +22,14 @@ export const createApplicationCommandHandler = (application) => {
     const publicKey = fromHexString(application.publicKey);
     router.get('/', authorize(application.applicationId, application.permissions));
     router.post('/interaction', interaction({ publicKey, commands, components }));
-    router.get('/setup', setup(application));
+    router.get('/setup', setup({
+        applicationId: application.applicationId,
+        botToken: application.botToken,
+        guildId: application.guildId,
+        commands: application.commands,
+        publicKey: application.publicKey,
+        permissions: application.permissions
+    }));
     return router.handle;
 };
 //# sourceMappingURL=handler.js.map
