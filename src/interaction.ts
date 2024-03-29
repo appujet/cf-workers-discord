@@ -45,14 +45,13 @@ const jsonResponse = (data: any): Response => {
 };
 
 interface InteractionArgs {
-  applicationId: string;
   publicKey: Uint8Array;
   commands: DictCommands;
   components?: DictComponents;
 }
 
 export const interaction =
-  ({ applicationId, publicKey, commands, components = {} }: InteractionArgs, env: any, context: ExecutionContext) =>
+  ({ publicKey, commands, components = {} }: InteractionArgs) =>
   async (request: Request, ...extra: any): Promise<Response> => {
     try {
       await validateRequest(request.clone(), publicKey);

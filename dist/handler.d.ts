@@ -23,5 +23,5 @@ export type DictCommands = Record<string, Command>;
 export type MessageComponentWithCustomId = APIButtonComponentWithCustomId | APISelectMenuComponent;
 export declare const fromHexString: (hexString: string) => Uint8Array;
 export type ApplicationCommandHandler = (request: Request, ...extra: any) => Promise<any>;
-export declare const createApplicationCommandHandler: (application: Application, env: any, context: ExecutionContext) => ApplicationCommandHandler;
+export declare const createApplicationCommandHandler: (application: Application) => ApplicationCommandHandler;
 //# sourceMappingURL=handler.d.ts.map

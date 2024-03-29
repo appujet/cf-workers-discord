@@ -23,7 +23,7 @@ const validateRequest = async (request, publicKey) => {
 const jsonResponse = (data) => {
     return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } });
 };
-export const interaction = ({ applicationId, publicKey, commands, components = {} }, env, context) => async (request, ...extra) => {
+export const interaction = ({ publicKey, commands, components = {} }) => async (request, ...extra) => {
     try {
         await validateRequest(request.clone(), publicKey);
         const interaction = (await request.json());

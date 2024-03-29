@@ -60,8 +60,6 @@ const toDictCommands = (application: Application): DictCommands => {
 
 export const createApplicationCommandHandler = (
   application: Application,
-  env: any,
-  context: ExecutionContext,
 ): ApplicationCommandHandler => {
   const components = toDictComponents(application);
   const commands = toDictCommands(application);
@@ -70,7 +68,7 @@ export const createApplicationCommandHandler = (
   router.get('/', authorize(application.applicationId, application.permissions));
   router.post(
     '/interaction',
-    interaction({ applicationId: application.applicationId, publicKey, commands, components }, env, context),
+    interaction({ publicKey, commands, components }),
   );
   router.get('/setup', setup(application));
   return router.handle;
