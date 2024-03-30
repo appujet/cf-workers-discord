@@ -13,7 +13,7 @@ import {
   InteractionResponseType,
 } from './types';
 import { CommandContext } from './contexts/commandContext';
-import { ComponentContext } from './contexts/ComponentContext';
+import { ComponentContext } from './contexts/componentContext';
 import respond from './respond';
 
 class InvalidRequestError extends Error {
@@ -57,50 +57,50 @@ interface InteractionArgs {
 
 export const interaction =
   ({ botToken, publicKey, commands, components = {} }: InteractionArgs) =>
-  async (request: Request, ...extra: any): Promise<Response> => {
-    try {
-      await validateRequest(request.clone(), publicKey);
+    async (request: Request, ...extra: any): Promise<Response> => {
+      try {
+        await validateRequest(request.clone(), publicKey);
 
-      const interaction = (await request.json()) as
-        | APIPingInteraction
-        | APIApplicationCommandInteraction
-        | APIMessageApplicationCommandInteraction
-        | APIModalSubmitInteraction
-        | APIMessageComponentInteraction;
+        const interaction = (await request.json()) as
+          | APIPingInteraction
+          | APIApplicationCommandInteraction
+          | APIMessageApplicationCommandInteraction
+          | APIModalSubmitInteraction
+          | APIMessageComponentInteraction;
 
-      switch (interaction.type) {
-        case InteractionType.Ping: {
+        switch (interaction.type) {
+          case InteractionType.Ping: {
             return respond({
               type: InteractionResponseType.Pong,
             });
-        }
-        case InteractionType.ApplicationCommand: {
-          const ctx = new CommandContext(interaction, botToken);
-          const options = interaction as APIApplicationCommandInteraction;
-          if (options.data?.name === undefined) {
-            throw Error('Interaction name is undefined');
           }
-          const handler = commands[options.data?.name].handler;
-          return jsonResponse(await handler(ctx));
-        }
-        case InteractionType.MessageComponent: {
-          const ctx = new ComponentContext(interaction, botToken);
-          const options = interaction as APIMessageComponentInteraction;
-          if (options.data === undefined) {
-            throw Error('Interaction custom_id is undefined');
+          case InteractionType.ApplicationCommand: {
+            const ctx = new CommandContext(interaction, botToken);
+            const options = interaction as APIApplicationCommandInteraction;
+            if (options.data?.name === undefined) {
+              throw Error('Interaction name is undefined');
+            }
+            const handler = commands[options.data?.name].handler;
+            return jsonResponse(await handler(ctx));
           }
-          const handler = components[options.data?.custom_id].handler;
-          return jsonResponse(await handler(ctx));
+          case InteractionType.MessageComponent: {
+            const ctx = new ComponentContext(interaction, botToken);
+            const options = interaction as APIMessageComponentInteraction;
+            if (options.data === undefined) {
+              throw Error('Interaction custom_id is undefined');
+            }
+            const handler = components[options.data?.custom_id].handler;
+            return jsonResponse(await handler(ctx));
+          }
+          default: {
+            return new Response(null, { status: 404 });
+          }
         }
-        default: {
-          return new Response(null, { status: 404 });
+      } catch (e: any) {
+        console.error(e);
+        if (e instanceof InvalidRequestError) {
+          return new Response(e.message, { status: 401 });
         }
+        return new Response('Internal server error!', { status: 500 });
       }
-    } catch (e: any) {
-      console.error(e);
-      if (e instanceof InvalidRequestError) {
-        return new Response(e.message, { status: 401 });
-      }
-      return new Response('Internal server error!', { status: 500 });
-    }
-  };
+    };

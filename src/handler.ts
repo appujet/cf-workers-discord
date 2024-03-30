@@ -10,7 +10,7 @@ import {
   APISelectMenuComponent,
   PartialWithRequiredAPIApplicationCommand,
 } from './types';
-import { ComponentContext } from './contexts/ComponentContext';
+import { ComponentContext } from './contexts/componentContext';
 import { CommandContext } from './contexts/commandContext';
 
 const router = Router();
