@@ -11,11 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "types": [
-      "@cloudflare/workers-types",
-      "@types/jest",
-      "node"
-    ]
   },
   "include": [
     "src"
