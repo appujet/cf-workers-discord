@@ -7,7 +7,6 @@ import {
     Routes,
 } from "discord-api-types/v10";
 import respond from "../respond";
-import { fetch } from "undici";
 
 export class Context {
     public interaction: APIInteraction;

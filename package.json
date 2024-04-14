@@ -4,13 +4,22 @@
   "description": "A Discord bot running on Cloudflare Workers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "files": [
     "/dist",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p .",
+    "build": "npm run build:ts",
+    "build:ts": "tsup --config tsup-config.json",
+    "prepare": "npm run build:ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,14 +28,15 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^3.14.1",
     "@types/jest": "^29.2.3",
+    "@types/node-fetch": "^2.6.11",
     "@types/node": "^16.7.10",
     "ts-loader": "^9.4.1",
+    "tsup": "^8.0.2",
     "typescript": "^4.7.4"
   },
   "dependencies": {
     "discord-api-types": "^0.37.18",
     "itty-router": "^2.6.6",
-    "tweetnacl": "github:Inrixia/tweetnacl-js",
-    "undici": "^6.10.2"
+    "tweetnacl": "github:Inrixia/tweetnacl-js"
   }
 }

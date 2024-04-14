@@ -1,24 +1,16 @@
 {
   "compilerOptions": {
-    "incremental": true,
-    "target": "es2021",
-    "lib": [
-      "es2021"
-    ],
-    "jsx": "react",
-    "module": "es2022",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowJs": false,
+    "module": "node16",
+    "moduleResolution": "node16",
+    "outDir": "dist",
+    "target": "es2020",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "alwaysStrict": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "preserveConstEnums": true,
-    "esModuleInterop": true,
-    "rootDir": "src",
-    "outDir": "dist",
     "types": [
       "@cloudflare/workers-types",
       "@types/jest",
