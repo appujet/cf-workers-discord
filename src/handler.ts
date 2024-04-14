@@ -32,6 +32,7 @@ export interface Application {
   commands: Command[];
   permissions: Permissions;
   guildId?: string;
+  env?: any;
   components?: MessageComponent[];
 }
 
@@ -70,7 +71,7 @@ export const createApplicationCommandHandler = (
   router.get('/', authorize(application.applicationId, application.permissions));
   router.post(
     '/interaction',
-    interaction({ botToken: application.botToken, publicKey, commands, components }),
+    interaction({ botToken: application.botToken, publicKey, commands, components, env: application.env}),
   );
   router.get('/setup', setup(application));
   return router.handle;

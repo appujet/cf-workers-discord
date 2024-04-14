@@ -3,8 +3,10 @@ import { Context } from "./context";
 
 export class ComponentContext extends Context {
     public interaction: APIMessageComponentInteraction;
-    constructor(interaction: APIMessageComponentInteraction, botToken: string) {
-        super(interaction, botToken);
+    public env: any;
+    constructor(interaction: APIMessageComponentInteraction, botToken: string, env: any) {
+        super(interaction, botToken, env);
         this.interaction = interaction;
+        this.env = env;
     }
 }

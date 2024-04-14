@@ -12,10 +12,12 @@ import { fetch } from "undici";
 export class Context {
     public interaction: APIInteraction;
     public botToken: string;
+    public env: any
 
-    constructor(interaction: APIInteraction, botToken: string) {
+    constructor(interaction: APIInteraction, botToken: string, env: any) {
         this.interaction = interaction;
         this.botToken = botToken;
+        this.env = env
     }
 
     get guildId() {

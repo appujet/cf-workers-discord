@@ -53,10 +53,11 @@ interface InteractionArgs {
   publicKey: Uint8Array;
   commands: DictCommands;
   components?: DictComponents;
+  env?: any;
 }
 
 export const interaction =
-  ({ botToken, publicKey, commands, components = {} }: InteractionArgs) =>
+  ({ botToken, publicKey, commands, components = {}, env, }: InteractionArgs) =>
     async (request: Request, ...extra: any): Promise<Response> => {
       try {
         await validateRequest(request.clone(), publicKey);
@@ -75,7 +76,7 @@ export const interaction =
             });
           }
           case InteractionType.ApplicationCommand: {
-            const ctx = new CommandContext(interaction, botToken);
+            const ctx = new CommandContext(interaction, botToken, env);
             const options = interaction as APIApplicationCommandInteraction;
             if (options.data?.name === undefined) {
               throw Error('Interaction name is undefined');
@@ -84,7 +85,7 @@ export const interaction =
             return jsonResponse(await handler(ctx));
           }
           case InteractionType.MessageComponent: {
-            const ctx = new ComponentContext(interaction, botToken);
+            const ctx = new ComponentContext(interaction, botToken, env);
             const options = interaction as APIMessageComponentInteraction;
             if (options.data === undefined) {
               throw Error('Interaction custom_id is undefined');
