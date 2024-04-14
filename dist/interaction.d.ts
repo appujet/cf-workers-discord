@@ -1,3 +1,4 @@
+/// <reference types="@cloudflare/workers-types" />
 import { DictCommands, DictComponents } from './handler';
 interface InteractionArgs {
     botToken: string;

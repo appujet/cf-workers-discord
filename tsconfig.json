@@ -2,7 +2,9 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es2021",
-    "lib": ["es2021"],
+    "lib": [
+      "es2021"
+    ],
     "jsx": "react",
     "module": "es2022",
     "moduleResolution": "node",
@@ -14,12 +16,19 @@
     "alwaysStrict": true,
     "strict": true,
     "preserveConstEnums": true,
-
     "esModuleInterop": true,
     "rootDir": "src",
     "outDir": "dist",
-    "types": ["@cloudflare/workers-types", "@types/node"]
+    "types": [
+      "@cloudflare/workers-types",
+      "@types/jest"
+    ]
   },
-  "include": ["src"],
-  "exclude": ["node_modules/**", "dist/"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules/**",
+    "dist/"
+  ]
 }
