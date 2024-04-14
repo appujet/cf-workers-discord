@@ -1,7 +1,7 @@
 /// <reference types="@cloudflare/workers-types" />
 import { Permissions } from './permissions';
 import { APIButtonComponentWithCustomId, APIInteractionResponse, APISelectMenuComponent, PartialWithRequiredAPIApplicationCommand } from './types';
-import { ComponentContext } from './contexts/ComponentContext';
+import { ComponentContext } from './contexts/componentContext';
 import { CommandContext } from './contexts/commandContext';
 export interface Command {
     command: PartialWithRequiredAPIApplicationCommand;
@@ -18,6 +18,7 @@ export interface Application {
     commands: Command[];
     permissions: Permissions;
     guildId?: string;
+    env?: any;
     components?: MessageComponent[];
 }
 export type DictComponents = Record<string, MessageComponent>;

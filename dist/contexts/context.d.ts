@@ -4,11 +4,12 @@ import respond from "../respond";
 export declare class Context {
     interaction: APIInteraction;
     botToken: string;
-    constructor(interaction: APIInteraction, botToken: string);
+    env: any;
+    constructor(interaction: APIInteraction, botToken: string, env: any);
     get guildId(): string | undefined;
     respond: typeof respond;
-    editReply(content: APIInteractionResponseCallbackData): Promise<Response>;
-    showModal(content: APIModalInteractionResponseCallbackData): Promise<Response>;
+    editReply(content: APIInteractionResponseCallbackData): Promise<import("undici").Response>;
+    showModal(content: APIModalInteractionResponseCallbackData): Promise<import("undici").Response>;
     returnModal(content: APIModalInteractionResponseCallbackData): Promise<Response>;
 }
 //# sourceMappingURL=context.d.ts.map

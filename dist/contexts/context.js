@@ -1,10 +1,12 @@
 import { InteractionResponseType, RouteBases, Routes, } from "discord-api-types/v10";
 import respond from "../respond";
+import { fetch } from "undici";
 export class Context {
-    constructor(interaction, botToken) {
+    constructor(interaction, botToken, env) {
         this.respond = respond;
         this.interaction = interaction;
         this.botToken = botToken;
+        this.env = env;
     }
     get guildId() {
         return this.interaction.guild_id;

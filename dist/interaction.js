@@ -3,7 +3,7 @@ import { sign } from 'tweetnacl';
 import { fromHexString } from './handler';
 import { InteractionType, InteractionResponseType, } from './types';
 import { CommandContext } from './contexts/commandContext';
-import { ComponentContext } from './contexts/ComponentContext';
+import { ComponentContext } from './contexts/componentContext';
 import respond from './respond';
 class InvalidRequestError extends Error {
     constructor(message) {
@@ -26,7 +26,7 @@ const validateRequest = async (request, publicKey) => {
 const jsonResponse = (data) => {
     return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } });
 };
-export const interaction = ({ botToken, publicKey, commands, components = {} }) => async (request, ...extra) => {
+export const interaction = ({ botToken, publicKey, commands, components = {}, env, }) => async (request, ...extra) => {
     try {
         await validateRequest(request.clone(), publicKey);
         const interaction = (await request.json());
@@ -37,7 +37,7 @@ export const interaction = ({ botToken, publicKey, commands, components = {} }) 
                 });
             }
             case InteractionType.ApplicationCommand: {
-                const ctx = new CommandContext(interaction, botToken);
+                const ctx = new CommandContext(interaction, botToken, env);
                 const options = interaction;
                 if (options.data?.name === undefined) {
                     throw Error('Interaction name is undefined');
@@ -46,7 +46,7 @@ export const interaction = ({ botToken, publicKey, commands, components = {} }) 
                 return jsonResponse(await handler(ctx));
             }
             case InteractionType.MessageComponent: {
-                const ctx = new ComponentContext(interaction, botToken);
+                const ctx = new ComponentContext(interaction, botToken, env);
                 const options = interaction;
                 if (options.data === undefined) {
                     throw Error('Interaction custom_id is undefined');
